@@ -39,6 +39,17 @@ const Index = () => {
           <ListItem key={index} display="flex" alignItems="center" mb={2}>
             <Checkbox isChecked={todo.isCompleted} onChange={() => handleCheckboxChange(index)} mr={2} />
             <Box as={todo.isCompleted ? "s" : "span"}>{todo.text}</Box>
+            <Button
+              onClick={() => {
+                const newTodos = todos.filter((_, todoIndex) => todoIndex !== index);
+                setTodos(newTodos);
+              }}
+              ml={2}
+              size="xs"
+              colorScheme="red"
+            >
+              Delete
+            </Button>
           </ListItem>
         ))}
       </List>

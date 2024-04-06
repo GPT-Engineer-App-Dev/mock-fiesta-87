@@ -1,15 +1,49 @@
-// Complete the Index page component here
-// Use chakra-ui
-import { Button } from "@chakra-ui/react"; // example
-import { FaPlus } from "react-icons/fa"; // example - use react-icons/fa for icons
+import { useState } from "react";
+import { Box, Input, Button, List, ListItem, Checkbox } from "@chakra-ui/react";
+import { FaPlus } from "react-icons/fa";
 
 const Index = () => {
-  // TODO: Create the website here!
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleInputChange = (e) => setInputValue(e.target.value);
+
+  const handleAddTodo = () => {
+    if (inputValue.trim() !== "") {
+      setTodos([...todos, { text: inputValue, isCompleted: false }]);
+      setInputValue("");
+    }
+  };
+
+  const handleCheckboxChange = (index) => {
+    const newTodos = todos.map((todo, todoIndex) => {
+      if (todoIndex === index) {
+        return { ...todo, isCompleted: !todo.isCompleted };
+      }
+      return todo;
+    });
+
+    setTodos(newTodos);
+  };
+
   return (
-    <Button>
-      Hello world! <FaPlus />
-    </Button>
-  ); // example
+    <Box p={4}>
+      <Box display="flex" mb={4}>
+        <Input placeholder="Add a todo" value={inputValue} onChange={handleInputChange} />
+        <Button onClick={handleAddTodo} ml={2} leftIcon={<FaPlus />}>
+          Add
+        </Button>
+      </Box>
+      <List>
+        {todos.map((todo, index) => (
+          <ListItem key={index} display="flex" alignItems="center" mb={2}>
+            <Checkbox isChecked={todo.isCompleted} onChange={() => handleCheckboxChange(index)} mr={2} />
+            <Box as={todo.isCompleted ? "s" : "span"}>{todo.text}</Box>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 };
 
 export default Index;

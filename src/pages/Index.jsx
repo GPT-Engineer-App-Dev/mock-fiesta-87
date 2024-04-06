@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Input, Button, List, ListItem, Checkbox } from "@chakra-ui/react";
+import { Box, Input, Button, List, ListItem, Checkbox, Heading, Text } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 
 const Index = () => {
@@ -28,9 +28,12 @@ const Index = () => {
 
   return (
     <Box p={4}>
+      <Heading size="4xl" mb={4}>
+        Todo List
+      </Heading>
       <Box display="flex" mb={4}>
         <Input placeholder="Add a todo" value={inputValue} onChange={handleInputChange} />
-        <Button onClick={handleAddTodo} ml={2} leftIcon={<FaPlus />}>
+        <Button onClick={handleAddTodo} ml={2} leftIcon={<FaPlus />} size="lg">
           Add
         </Button>
       </Box>
@@ -38,7 +41,9 @@ const Index = () => {
         {todos.map((todo, index) => (
           <ListItem key={index} display="flex" alignItems="center" mb={2}>
             <Checkbox isChecked={todo.isCompleted} onChange={() => handleCheckboxChange(index)} mr={2} />
-            <Box as={todo.isCompleted ? "s" : "span"}>{todo.text}</Box>
+            <Text as={todo.isCompleted ? "s" : "span"} fontSize="xl">
+              {todo.text}
+            </Text>
             <Button
               onClick={() => {
                 const newTodos = todos.filter((_, todoIndex) => todoIndex !== index);

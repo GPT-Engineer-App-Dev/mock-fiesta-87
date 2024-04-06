@@ -4,13 +4,31 @@ import { FaPlus } from "react-icons/fa";
 
 const Index = () => {
   const [todos, setTodos] = useState([]);
+
+  const handleTodoDoubleClick = (index) => {
+    setTodos(todos.map((todo, i) => (i === index ? { ...todo, isEditing: true, editingText: todo.text } : todo)));
+  };
+
+  const handleEditingInputChange = (event, index) => {
+    setTodos(todos.map((todo, i) => (i === index ? { ...todo, editingText: event.target.value } : todo)));
+  };
+
+  const handleEditingInputBlur = (index) => {
+    setTodos(todos.map((todo, i) => (i === index ? { ...todo, isEditing: false, text: todo.editingText } : todo)));
+  };
+
+  const handleEditingInputKeyDown = (event, index) => {
+    if (event.key === "Enter") {
+      handleEditingInputBlur(index);
+    }
+  };
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => setInputValue(e.target.value);
 
   const handleAddTodo = () => {
     if (inputValue.trim() !== "") {
-      setTodos([...todos, { text: inputValue, isCompleted: false }]);
+      setTodos([...todos, { text: inputValue, isCompleted: false, isEditing: false, editingText: inputValue }]);
       setInputValue("");
     }
   };
@@ -41,9 +59,13 @@ const Index = () => {
         {todos.map((todo, index) => (
           <ListItem key={index} display="flex" alignItems="center" mb={2}>
             <Checkbox isChecked={todo.isCompleted} onChange={() => handleCheckboxChange(index)} mr={2} size="lg" />
-            <Text as={todo.isCompleted ? "s" : "span"} fontSize="2xl">
-              {todo.text}
-            </Text>
+            {todo.isEditing ? (
+              <Input value={todo.editingText} onChange={(event) => handleEditingInputChange(event, index)} onBlur={() => handleEditingInputBlur(index)} onKeyDown={(event) => handleEditingInputKeyDown(event, index)} size="lg" />
+            ) : (
+              <Text as={todo.isCompleted ? "s" : "span"} fontSize="2xl" onDoubleClick={() => handleTodoDoubleClick(index)}>
+                {todo.text}
+              </Text>
+            )}
             <Button
               onClick={() => {
                 const newTodos = todos.filter((_, todoIndex) => todoIndex !== index);

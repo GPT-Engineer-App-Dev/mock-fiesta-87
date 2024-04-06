@@ -33,7 +33,7 @@ const Index = () => {
       </Heading>
       <Box display="flex" mb={4}>
         <Input placeholder="Add a todo" value={inputValue} onChange={handleInputChange} />
-        <Button onClick={handleAddTodo} ml={2} leftIcon={<FaPlus />} size="lg">
+        <Button onClick={handleAddTodo} ml={2} leftIcon={<FaPlus />} size="lg" colorScheme="red">
           Add
         </Button>
       </Box>

@@ -28,20 +28,20 @@ const Index = () => {
 
   return (
     <Box p={4}>
-      <Heading size="4xl" mb={4}>
+      <Heading size="5xl" mb={4}>
         Todo List
       </Heading>
       <Box display="flex" mb={4}>
         <Input placeholder="Add a todo" value={inputValue} onChange={handleInputChange} />
-        <Button onClick={handleAddTodo} ml={2} leftIcon={<FaPlus />} size="lg" colorScheme="red">
+        <Button onClick={handleAddTodo} ml={2} leftIcon={<FaPlus />} size="xl" colorScheme="red">
           Add
         </Button>
       </Box>
       <List>
         {todos.map((todo, index) => (
           <ListItem key={index} display="flex" alignItems="center" mb={2}>
-            <Checkbox isChecked={todo.isCompleted} onChange={() => handleCheckboxChange(index)} mr={2} />
-            <Text as={todo.isCompleted ? "s" : "span"} fontSize="xl">
+            <Checkbox isChecked={todo.isCompleted} onChange={() => handleCheckboxChange(index)} mr={2} size="lg" />
+            <Text as={todo.isCompleted ? "s" : "span"} fontSize="2xl">
               {todo.text}
             </Text>
             <Button
@@ -50,7 +50,7 @@ const Index = () => {
                 setTodos(newTodos);
               }}
               ml={2}
-              size="xs"
+              size="lg"
               colorScheme="red"
             >
               Delete

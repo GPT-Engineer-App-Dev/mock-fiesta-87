@@ -54,11 +54,11 @@ const Index = () => {
   };
 
   return (
-    <Box p={2}>
+    <Box p={8}>
       <Heading size="5xl" mb={4}>
         Todo List
       </Heading>
-      <Box display="flex" mb={4}>
+      <Box display="flex" mb={4} pb={4}>
         <Input placeholder="Add a todo" value={inputValue} onChange={handleInputChange} />
         <Button onClick={handleAddTodo} ml={2} leftIcon={<FaPlus />} size="xl" colorScheme="red">
           Add
@@ -66,7 +66,7 @@ const Index = () => {
       </Box>
       <Reorder.Group as={List} values={todos} onReorder={handleReorder}>
         {todos.map((todo, index) => (
-          <Reorder.Item key={todo.id} value={todo} whileDrag={{ backgroundColor: "gray.100" }} display="flex" alignItems="center" mb={2}>
+          <Reorder.Item key={todo.id} value={todo} whileDrag={{ backgroundColor: "gray.100" }} display="flex" alignItems="center" mb={2} p={2}>
             <Checkbox isChecked={todo.isCompleted} onChange={() => handleCheckboxChange(index)} mr={2} size="lg" />
             {todo.isEditing ? (
               <Input value={todo.editingText} onChange={(event) => handleEditingInputChange(event, index)} onBlur={() => handleEditingInputBlur(index)} onKeyDown={(event) => handleEditingInputKeyDown(event, index)} size="lg" />

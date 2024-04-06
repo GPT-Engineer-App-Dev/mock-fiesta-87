@@ -54,7 +54,7 @@ const Index = () => {
   };
 
   return (
-    <Box p={4}>
+    <Box p={2}>
       <Heading size="5xl" mb={4}>
         Todo List
       </Heading>
